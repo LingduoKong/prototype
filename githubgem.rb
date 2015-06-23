@@ -15,19 +15,26 @@ def new_client(username , password)
 end
 
 def new_label (name, color)
-  new_client()
+  new_client("")
   newlab = [{:name => name, :color => color}]
   p @client.update_issue("LingduoKong/final", 1, :labels => newlab)
 end
 
 def commit_messages
   new_client("")
+  newlabel = [{:name => name, :color => color}]
+  p @client.update_issue("LingduoKong/final", 1, :labels => newlabel)
+end
+
+def commit_messages
   @commits= @client.commits("LingduoKong/final")
   # puts @commits[5].commit.methods
   # p @client.methods
   # p @client.commits_since(@commits.each{|commit| commit.commit.date})
    # p @client.commits_since(DateTime.now.to_date)
    puts DateTime.now
+   @client.commits_since("LingduoKong/final", "2011-01-20")
+   # DateTime.now.to_s
 end
 
 def compare(issue_num) 
