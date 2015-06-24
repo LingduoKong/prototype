@@ -1,8 +1,10 @@
 require 'pony'
 
 Pony.mail({
-  :to => 'destination@email.com',
+  :to => 'kld.application@gmail.com',
+  :subject => 'whatever',
   :via => :smtp,
+  :html_body => "<h1>Health Engine</h1><br><p>This is a test html email, I know it's ugly</p>",
   :via_options => {
     :address              => 'smtp.gmail.com',
     :port                 => '587',

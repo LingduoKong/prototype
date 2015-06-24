@@ -13,7 +13,7 @@ require 'trello'
 
 TRELLO_DEVELOPER_PUBLIC_KEY="7e9522e062d8095332b4a1abea9d5c2d"
 
-TRELLO_MEMBER_TOKEN="2ee3ba64087c31a8f85af0aa482315bc1025091086517f1bdd9eea1038cfe0fc"
+TRELLO_MEMBER_TOKEN=
 
 Trello.configure do |trello|
   trello.developer_public_key = TRELLO_DEVELOPER_PUBLIC_KEY
