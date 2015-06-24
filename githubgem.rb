@@ -21,32 +21,30 @@ def new_label (name, color)
 end
 
 def commit_messages
-  new_client("")
-  newlabel = [{:name => name, :color => color}]
-  p @client.update_issue("LingduoKong/final", 1, :labels => newlabel)
-end
-
-def commit_messages
-  @commits= @client.commits("LingduoKong/final")
   # puts @commits[5].commit.methods
   # p @client.methods
   # p @client.commits_since(@commits.each{|commit| commit.commit.date})
    # p @client.commits_since(DateTime.now.to_date)
-   puts DateTime.now
-   @client.commits_since("LingduoKong/final", "2011-01-20")
+    t= DateTime.now - 30
+    time = t.strftime('%Y-%m-%d') 
+
+   @commits = @client.commits_since("LingduoKong/final", time )
    # DateTime.now.to_s
 end
 
 def compare(issue_num) 
   commit_messages
   @commits.each do |commit|
-    if commit.commit.message == issue_num
-        p commit.commit.message
-    else
-      p "not working"
+    if commit.commit.message[issue_num]
+      @commit = commit
+      p @message = @commit.commit.message
     end
   end
 end
+
+# def commit_comments
+#   p @commit.ea
+# end
 
 # compare("new one")
 # def get_repos(username)
@@ -83,4 +81,7 @@ end
 
 
 # new_label("test","33CC33")
+new_client()
 commit_messages
+@commits
+compare("new one")
