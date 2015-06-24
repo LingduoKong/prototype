@@ -40,7 +40,7 @@ def compare
       @issues_num = @message.scan(/{issue#\d+/)
       @issues_num.each do |issue_num|
         num = issue_num.scan(/\d+/).first.to_i
-        new_label("test", "0000FF", num)
+        new_label("fix", "00FF00", num)
       end
     end
   end
