@@ -37,7 +37,11 @@ def compare
     if commit.commit.message=~/(.*){issue#\d*}(.*)/
       @commit = commit
       @message = @commit.commit.message
-      @issue= @message.scan(/{issue#\d+/).first.scan(/\d+/).first.to_i
+      @issues_num = @message.scan(/{issue#\d+/)
+      @issues_num.each do |issue_num|
+        num = issue_num.scan(/\d+/).first.to_i
+        new_label("test", "0000FF", num)
+      end
     end
   end
 end
@@ -84,4 +88,4 @@ end
 new_client()
 commit_messages
 @commits
-compare("new one")
+compare
