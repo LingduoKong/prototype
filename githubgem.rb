@@ -14,10 +14,9 @@ def new_client(username , password)
   # p user.repos
 end
 
-def new_label (name, color)
-  new_client("")
+def new_label (name, color, issue)
   newlab = [{:name => name, :color => color}]
-  p @client.update_issue("LingduoKong/final", 1, :labels => newlab)
+  @client.update_issue("LingduoKong/final", issue, :labels => newlab)
 end
 
 def commit_messages
@@ -32,12 +31,13 @@ def commit_messages
    # DateTime.now.to_s
 end
 
-def compare(issue_num) 
+def compare 
   commit_messages
   @commits.each do |commit|
-    if commit.commit.message[issue_num]
+    if commit.commit.message=~/(.*){issue#\d*}(.*)/
       @commit = commit
-      p @message = @commit.commit.message
+      @message = @commit.commit.message
+      @issue= @message.scan(/{issue#\d+/).first.scan(/\d+/).first.to_i
     end
   end
 end
