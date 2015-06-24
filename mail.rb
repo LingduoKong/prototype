@@ -1,7 +1,8 @@
+require 'mail'
 
 @mail = Mail.new do
   to      'lingduokong@gmail.com'
-  from    'kld.application@gmail.com'
+  from    'adriana.lcs316@gmail.com'
   subject 'email sent by ruby gem'
 
   text_part do
