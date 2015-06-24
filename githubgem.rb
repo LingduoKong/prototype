@@ -81,7 +81,7 @@ end
 
 
 # new_label("test","33CC33")
-new_client()
+new_client("LingduoKong", "yuyang12345")
 commit_messages
 @commits
 compare("new one")
