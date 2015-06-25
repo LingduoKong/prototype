@@ -9,66 +9,41 @@
 #   config.member_token = '61a0f93b284263b4439a0ee064a82bc09bc6df125978a34891792026cb3b90e7'
 # end
 # 2ee3ba64087c31a8f85af0aa482315bc1025091086517f1bdd9eea1038cfe0fc
-<<<<<<< HEAD
-
-=======
->>>>>>> 5142e6eed07b72355e3e9e0611ab80c0fde40edc
 require 'trello'
 
 TRELLO_DEVELOPER_PUBLIC_KEY="7e9522e062d8095332b4a1abea9d5c2d"
 
-<<<<<<< HEAD
 TRELLO_MEMBER_TOKEN="2ee3ba64087c31a8f85af0aa482315bc1025091086517f1bdd9eea1038cfe0fc"
-=======
-TRELLO_MEMBER_TOKEN=
->>>>>>> 5142e6eed07b72355e3e9e0611ab80c0fde40edc
 
 Trello.configure do |trello|
   trello.developer_public_key = TRELLO_DEVELOPER_PUBLIC_KEY
   trello.member_token = TRELLO_MEMBER_TOKEN
 end
 
-<<<<<<< HEAD
 # test: 558b0e12f2e6f4aa751abe4d
 # dev: 552454f0fc2cbc53c307b025
 
 def get_board
   @board = Trello::Board.find("558b0e12f2e6f4aa751abe4d")
   return @board
-=======
-def get_board
-  @board = Trello::Board.find("552454f0fc2cbc53c307b025")
-  @board
->>>>>>> 5142e6eed07b72355e3e9e0611ab80c0fde40edc
 end
 
 def get_lists
   @lists = @board.lists
-<<<<<<< HEAD
   return @lists
-=======
->>>>>>> 5142e6eed07b72355e3e9e0611ab80c0fde40edc
 end
 
 def get_list(list_name)
   @lists.each do |list|
     if list.name[list_name]
       @list = list
-<<<<<<< HEAD
       return @list
-=======
-      p @list
->>>>>>> 5142e6eed07b72355e3e9e0611ab80c0fde40edc
     end
   end
 end
 
 def get_cards(list)
-<<<<<<< HEAD
   return @cards= list.cards
-=======
-  @cards= list.cards
->>>>>>> 5142e6eed07b72355e3e9e0611ab80c0fde40edc
 end
 
 def get_checklist_item(issue_number)
@@ -95,7 +70,6 @@ def change_item_state(checklist, item)
   checklist.save
 end
 
-<<<<<<< HEAD
 def move_cards(list_from_name, list_to_name)
   from_list = get_list(list_from_name)
   to_list = get_list(list_to_name)
@@ -109,12 +83,6 @@ get_board
 get_lists
 # get_list("Deployment to Staging")
 # get_cards(@list)
-=======
-get_board
-get_lists
-get_list("Deployment to Staging")
-get_cards(@list)
->>>>>>> 5142e6eed07b72355e3e9e0611ab80c0fde40edc
 
 
 
