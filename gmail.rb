@@ -1,10 +1,13 @@
 require 'pony'
 
+email = File.read("email.html")
+
+
 Pony.mail({
   :to => 'kld.application@gmail.com',
   :subject => 'whatever',
   :via => :smtp,
-  :html_body => "<h1>Health Engine</h1><br><p>This is a test html email, I know it's ugly</p>",
+  :html_body => email.to_s,
   :via_options => {
     :address              => 'smtp.gmail.com',
     :port                 => '587',
