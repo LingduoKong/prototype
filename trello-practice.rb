@@ -40,6 +40,7 @@ def get_list(list_name)
       return @list
     end
   end
+  return nil
 end
 
 def get_cards(list)
@@ -47,15 +48,18 @@ def get_cards(list)
 end
 
 def get_checklist_item(issue_number)
+  flag = false
   @cards.each do |card|
     card.checklists.each do |checklist|
       checklist.items.each do |item|
         if item.name[issue_number]
           change_item_state(checklist, item)
+          flag = true
         end
       end
     end
   end
+  return flag
 end
 
 #checklist = card checklist
@@ -73,6 +77,11 @@ end
 def move_cards(list_from_name, list_to_name)
   from_list = get_list(list_from_name)
   to_list = get_list(list_to_name)
+
+  if from_list == nil || to_list == nil
+    p "nil list error, check list names"
+    return 
+  end
   cards = get_cards(from_list)
   cards.each do |card|
    card.move_to_list(to_list)

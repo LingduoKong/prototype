@@ -32,7 +32,17 @@ def commit_messages
    # DateTime.now.to_s
 end
 
-def compare(issue_num) 
+def compare_issue_numbers(issue_num) 
+  commit_messages
+  @commits.each do |commit|
+    if commit.commit.message[issue_num]
+      @commit = commit
+      p @message = @commit.commit.message
+    end
+  end
+end
+
+def extract_business_features
   commit_messages
   @commits.each do |commit|
     if commit.commit.message[issue_num]
