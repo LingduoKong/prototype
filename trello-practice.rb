@@ -31,9 +31,9 @@ end
 
 def get_list(list_name)
   @lists.each do |list|
-    if list.name == list_name
+    if list.name[list_name]
       @list = list
-      @list
+      p @list
     end
   end
 end
@@ -68,9 +68,9 @@ end
 
 get_board
 get_lists
-get_list("Implementation")
+get_list("Deployment to Staging")
 get_cards(@list)
-get_checklist_item('test item')
+
 
 
 
