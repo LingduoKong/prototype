@@ -14,10 +14,9 @@ def new_client(username , password)
   # p user.repos
 end
 
-def new_label (name, color)
-  new_client("")
-  newlab = [{:name => name, :color => color}]
-  p @client.update_issue("LingduoKong/final", 1, :labels => newlab)
+def new_label (name, color, issue)
+  newlab = [{:name => name, :color => color}]re
+  @client.update_issue("LingduoKong/final", issue, :labels => newlab)
 end
 
 def commit_messages
@@ -42,13 +41,29 @@ def compare_issue_numbers(issue_num)
   end
 end
 
-def extract_business_features
+def check_messages 
   commit_messages
   @commits.each do |commit|
-    if commit.commit.message[issue_num]
+    if commit.commit.message=~/(.*){issue#\d+}(.*)/
       @commit = commit
-      p @message = @commit.commit.message
+      @message = @commit.commit.message
+      @issues_num = @message.scan(/{issue#\d+}/)
+      @issues_num.each do |issue_num|
+        num = issue_num.scan(/\d+/).first.to_i
+        new_label("fix", "00FF00", num)
+      end
     end
+
+    if commit.commit.message=~/(.*){feature#.+}(.*)/
+      @commit = commit
+      @message = @commit.commit.message
+      @features = @message.scan(/{feature#.+}/)
+      @features.each do |feature|
+        feature = feature.split("#")[1].split("}")
+        puts feature
+      end
+    end
+
   end
 end
 
@@ -88,10 +103,8 @@ end
 #   end
 # end
 
-
-
 # new_label("test","33CC33")
 new_client("LingduoKong", "yuyang12345")
 commit_messages
 @commits
-compare("new one")
+compare
