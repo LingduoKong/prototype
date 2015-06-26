@@ -85,7 +85,8 @@ def check_messages
       end
     end
   end
-  return content
+  @content = content
+  return @content
 end
 
 # “version” : Version 2.0.2
@@ -104,7 +105,7 @@ end
 
 def generate_weekly_data(file_name, content, version_num)
   file = File.open(file_name, 'a+')
-  content.version = version_num
+  content["version"] = version_num
   file.puts(content)
   file.close
 end
@@ -146,7 +147,3 @@ end
 # end
 
 # new_label("test","33CC33")
-new_client("LingduoKong", "yuyang12345")
-commit_messages
-@commits
-check_messages
