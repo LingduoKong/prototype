@@ -15,7 +15,7 @@ def new_client(username , password)
 end
 
 def new_label (name, color, issue)
-  newlab = [{:name => name, :color => color}]re
+  newlab = [{:name => name, :color => color}]
   @client.update_issue("LingduoKong/final", issue, :labels => newlab)
 end
 
@@ -111,8 +111,7 @@ end
 # end
 
 # new_label("test","33CC33")
-# new_client("LingduoKong", "yuyang12345")
-# commit_messages
-# @commits
-# compare
-# get_issues
+new_client("LingduoKong", "yuyang12345")
+commit_messages
+@commits
+get_issues(1)
