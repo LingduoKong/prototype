@@ -68,8 +68,13 @@ def check_messages
 end
 
 def get_issues(num)
-  @issues = Octokit.issues "LingduoKong/final", :per_page => 100, :state => "closed", :number=> num.to_s
-  p @issues
+  @issues = Octokit.issues "LingduoKong/final", :per_page => 100, :state => "open"
+  @issues.each do |issue|
+    if issue.number= num
+      @issue = issue
+      p @issue
+    end
+  end
 end
 
 # def create_file
@@ -111,7 +116,9 @@ end
 # end
 
 # new_label("test","33CC33")
-new_client("LingduoKong", "yuyang12345")
-commit_messages
-@commits
-get_issues(1)
+# new_client("LingduoKong", "yuyang12345")
+# commit_messages
+# @commits
+# get_issues(1)
+
+# p @issue
