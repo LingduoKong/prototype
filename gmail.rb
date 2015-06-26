@@ -2,7 +2,6 @@ require 'pony'
 
 email = File.read("email.html")
 
-
 Pony.mail({
   :to => 'kld.application@gmail.com',
   :subject => 'whatever',
@@ -12,9 +11,9 @@ Pony.mail({
     :address              => 'smtp.gmail.com',
     :port                 => '587',
     :enable_starttls_auto => true,
-    :user_name            => 'user',
-    :password             => 'password',
-    :authentication       => :plain, # :plain, :login, :cram_md5, no auth by default
-    :domain               => "localhost.localdomain" # the HELO domain provided by the client to the server
-  }
+    :user_name            => 'adriana.lcs316@gmail.com',
+    :password             => 'milkshake723',
+  :authentication       => :plain, # :plain, :login, :cram_md5, no auth by default
+  :domain               => "localhost.localdomain" # the HELO domain provided by the client to the server
+}
 })

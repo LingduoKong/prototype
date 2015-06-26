@@ -88,8 +88,7 @@ def move_cards(list_from_name, list_to_name)
   end
 end
 
-get_board
-get_lists
+
 # get_list("Deployment to Staging")
 # get_cards(@list)
 

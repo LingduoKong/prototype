@@ -34,11 +34,11 @@ def commit_messages
   # p @client.methods
   # p @client.commits_since(@commits.each{|commit| commit.commit.date})
   # p @client.commits_since(DateTime.now.to_date)
-  t= DateTime.now - 30
+  t= DateTime.now - 10
   time = t.strftime('%Y-%m-%d') 
-
   @commits = @client.commits_since("LingduoKong/final", time )
    # DateTime.now.to_s
+  return @commits
  end
 
 #  def compare_issue_numbers(issue_num) 
@@ -50,6 +50,24 @@ def commit_messages
 #     end
 #   end
 # end
+
+def issume_numbers
+  numbers = []
+  commit_messages.each do |commit|
+    if commit.commit.message=~/(.*){issue#\d+}(.*)/
+      @commit = commit
+      @message = @commit.commit.message
+      @issues_num = @message.scan(/{issue#\d+}/)
+      @issues_num.each do |issue_num|
+        num = issue_num.scan(/\d+/).first.to_i
+        if !numbers.include?(num)
+          numbers.insert(0,num)
+        end
+      end
+    end
+  end
+  return numbers
+end
 
 def check_messages
   content = {}
@@ -87,7 +105,8 @@ def check_messages
       end
     end
   end
-  return content
+  @content = content
+  return @content
 end
 
 # “version” : Version 2.0.2
@@ -167,3 +186,4 @@ end
 new_client("LingduoKong", "yuyang12345")
 
 check_messages
+
