@@ -163,9 +163,7 @@ end
 #     p issue.labels
 #   end
 # end
-
 # new_label("test","33CC33")
 new_client("LingduoKong", "yuyang12345")
-commit_messages
-@commits
+
 check_messages

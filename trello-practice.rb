@@ -52,7 +52,7 @@ def get_checklist_item(issue_number)
   @cards.each do |card|
     card.checklists.each do |checklist|
       checklist.items.each do |item|
-        if item.name[issue_number]
+        if item.name["/issues/" + issue_number.to_s + ")"]
           change_item_state(checklist, item)
           flag = true
         end
@@ -67,10 +67,10 @@ end
 def change_item_state(checklist, item)
   id = item.id
   pos = item.pos
-  checked = item.state_was == "complete" ? true : false
+  # checked = item.state_was == "complete" ? true : false
   name = item.name
   checklist.delete_checklist_item(id)
-  checklist.add_item(name, !checked, pos)
+  checklist.add_item(name, true, pos)
   checklist.save
 end
 
@@ -78,10 +78,10 @@ def move_cards(list_from_name, list_to_name)
   from_list = get_list(list_from_name)
   to_list = get_list(list_to_name)
 
-  if from_list == nil || to_list == nil
-    p "nil list error, check list names"
-    return 
-  end
+  # if from_list == nil || to_list == nil
+  #   p "nil list error, check list names"
+  #   return 
+  # end
   cards = get_cards(from_list)
   cards.each do |card|
    card.move_to_list(to_list)
