@@ -67,6 +67,16 @@ def check_messages
   end
 end
 
+def get_issues(num)
+  @issues = Octokit.issues "LingduoKong/final", :per_page => 100, :state => "closed", :number=> num.to_s
+  p @issues
+end
+
+# def create_file
+#   file = File.new("list_issues.txt", "a+")
+#   get_issues
+#   file.puts() 
+# end
 # def commit_comments
 #   p @commit.ea
 # end
@@ -80,10 +90,7 @@ end
 #   user.methods
 # end
 
-# def get_issues
-#   issues = Octokit.issues 'rails/rails', :per_page => 100, :state => "open"
-#    p issues[0]
-# end
+
 
 # def change_status
 #   get_issues
@@ -104,7 +111,8 @@ end
 # end
 
 # new_label("test","33CC33")
-new_client("LingduoKong", "yuyang12345")
-commit_messages
-@commits
-compare
+# new_client("LingduoKong", "yuyang12345")
+# commit_messages
+# @commits
+# compare
+# get_issues
