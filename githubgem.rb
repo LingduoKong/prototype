@@ -38,7 +38,7 @@ def commit_messages
 
   @commits = @client.commits_since("LingduoKong/final", time )
    # DateTime.now.to_s
-end
+ end
 
 #  def compare_issue_numbers(issue_num) 
 #   commit_messages
@@ -104,11 +104,28 @@ end
 
 def generate_weekly_data(file_name, content, version_num)
   file = File.open(file_name, 'a+')
-  content.version = version_num
+  content[:version] = version_num
   file.puts(content)
   file.close
 end
 
+# <h2>Version 2.0.2</h2>
+# <span style="font-size: 10pt">Release Date: 8 July 2013</span>
+# <ul>
+#     <li>Sublime Text 3 beta is now available from <a href="http://www.sublimetext.com/3">http://www.sublimetext.com/3</a></li>
+#     <li>Removed expiry date</li>
+#     <li>Backported various fixes from Sublime Text 3</li>
+#     <li>Improved minimap click behavior. The old behavior is available via the <tt>minimap_scroll_to_clicked_text</tt> setting</li>
+#     <li>Added <tt>copy_with_empty_selection</tt> setting, to control the behavior of the copy and cut commands when no text is selected</li>
+# </ul>
+
+def generate_webpage(file_name)
+  text=File.open(file_name).read
+  text.gsub!(/\r\n?/, "\n")
+  text.each_line do |line|
+    print line
+  end
+end
 # def commit_comments
 #   p @commit.ea
 # end
