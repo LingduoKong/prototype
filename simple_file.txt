@@ -1,2 +1,0 @@
-{"make":"bmw","year":"2003"}
-{"make":"bmw","year":"2003"}

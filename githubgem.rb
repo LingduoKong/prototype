@@ -1,5 +1,4 @@
 require 'octokit'
-# client = Octokit::Client.new(:login => 'alcastaneda', :password => 'milkshake723')
 
 # issues = Octokit.issues 'rails/rails', :per_page => 100
 
@@ -14,8 +13,14 @@ def new_client(username , password)
   # p user.repos
 end
 
-def get_issue(issue_num)
-  
+def get_issues(num)
+  @issues = Octokit.issues "LingduoKong/final", :per_page => 100, :state => "open"
+  @issues.each do |issue|
+    if issue.number == num
+      @issue = issue
+      return @issue
+    end
+  end
 end
 
 def new_label (name, color, issue)
@@ -97,8 +102,9 @@ end
 # [
 # ]
 
-def generate_weekly_data(file_name, content)
+def generate_weekly_data(file_name, content, version_num)
   file = File.open(file_name, 'a+')
+  content.version = version_num
   file.puts(content)
   file.close
 end
