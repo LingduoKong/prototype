@@ -1,4 +1,5 @@
 require 'octokit'
+require 'json'
 
 # issues = Octokit.issues 'rails/rails', :per_page => 100
 
@@ -52,10 +53,10 @@ def commit_messages
 
 def check_messages
   content = {}
-  content[:version] = nil
-  content[:release_date] = DateTime.now.strftime('%Y-%m-%d')
-  content[:features] = []
-  content[:fix_issue] = []
+  content["version"] = nil
+  content["release_date"] = DateTime.now.strftime('%Y-%m-%d')
+  content["features"] = []
+  content["fix_issue"] = []
 
   commit_messages
   @commits.each do |commit|
@@ -66,8 +67,9 @@ def check_messages
       @issues_num.each do |issue_num|
         num = issue_num.scan(/\d+/).first.to_i
         new_label("fix", "00FF00", num)
-        if !content[:fix_issue].include?(num)
-          content[:fix_issue].insert(0, num)
+        title = get_issues(num).title
+        if !content["fix_issue"].include?(title)
+          content["fix_issue"].insert(0, title)
         end
       end
     end
@@ -78,8 +80,8 @@ def check_messages
       @features = @message.scan(/{feature#.+}/)
       @features.each do |feature|
         feature = feature.split("#")[1].split("}").first
-        if !content[:features].include?(feature)
-          content[:features].insert(0, feature)
+        if !content["features"].include?(feature)
+          content["features"].insert(0, feature)
         end
         puts feature
       end
@@ -104,8 +106,8 @@ end
 
 def generate_weekly_data(file_name, content, version_num)
   file = File.open(file_name, 'a+')
-  content[:version] = version_num
-  file.puts(content)
+  content["version"] = version_num
+  file.write(content.to_json)
   file.close
 end
 
@@ -123,7 +125,7 @@ def generate_webpage(file_name)
   text=File.open(file_name).read
   text.gsub!(/\r\n?/, "\n")
   text.each_line do |line|
-    print line
+    return line
   end
 end
 # def commit_comments
