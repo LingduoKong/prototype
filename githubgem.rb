@@ -146,6 +146,8 @@ def generate_webpage(file_name)
 
   page = File.open("version.html","w")
 
+  page.puts('<body style="padding-right:10%;padding-left:10%;margin-right:auto;margin-left:auto">')
+
   text.each_line do |line|
     hs = JSON.parse(line)
     if ! hs["version"].empty?
@@ -169,6 +171,8 @@ def generate_webpage(file_name)
     end
     page.puts '</ul>'
   end
+
+  page.puts('</body>')
 
   page.close
 
