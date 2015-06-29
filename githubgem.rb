@@ -123,10 +123,10 @@ end
 # [
 # ]
 
-def generate_weekly_data(file_name, content, version_num)
+def generate_weekly_data(file_name, content, version_num = nil)
   file = File.open(file_name, 'a+')
-  content["version"] = version_num
-  file.write(content.to_json)
+  content["version"] = version_num.to_s
+  file.puts(content.to_json)
   file.close
 end
 
@@ -142,10 +142,36 @@ end
 
 def generate_webpage(file_name)
   text=File.open(file_name).read
-  text.gsub!(/\r\n?/, "\n")
+  text.gsub!(/\r\n?/, "")
+
+  page = File.open("version.html","w")
+
   text.each_line do |line|
-    return line
+    hs = JSON.parse(line)
+    if ! hs["version"].empty?
+      page.puts "<h2>" + "version" + hs["version"] + "</h2>"
+      page.puts '<span style="font-size: 10pt">Release Date:' + hs["release_date"] + "</span>"
+      page.puts '<hr>'
+    else
+      page.puts '<span style="font-size: 10pt">Date:' + hs["release_date"] + "</span>"
+    end
+    page.puts "<h3>features</h3>"
+    page.puts '<ul>'
+    hs["features"].each do |feature|
+      page.puts '<li>' + feature.to_s + '</li>'
+    end
+    page.puts '</ul>'
+
+    page.puts "<h3>issues</h3>"
+    page.puts '<ul>'
+    hs["fix_issue"].each do |issue|
+      page.puts '<li>' + issue.to_s + '</li>'
+    end
+    page.puts '</ul>'
   end
+
+  page.close
+
 end
 # def commit_comments
 #   p @commit.ea

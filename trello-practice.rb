@@ -84,7 +84,9 @@ def move_cards(list_from_name, list_to_name)
   # end
   cards = get_cards(from_list)
   cards.each do |card|
-   card.move_to_list(to_list)
+    if card.badges["checkItems"] == card.badges["checkItemsChecked"]
+      card.move_to_list(to_list)
+    end
   end
 end
 

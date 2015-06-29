@@ -24,6 +24,8 @@ def yolo
     get_checklist_item(issue_num)
   end
   # move_cards("Completed", "Archived")
+  move_cards("Deployment to staging", "Deployment to production")
+
 end
 
 yolo
