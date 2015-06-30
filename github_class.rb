@@ -4,6 +4,7 @@ class Github
 		@client = Octokit::Client.new(:login => username, :password => password)
 	end
 
+	# get issue according to its repo and issue number
 	def get_issue(repo,num)
 		@issues = Octokit.issues repo,:state => "open"
 		@issues.each do |issue|
@@ -20,6 +21,7 @@ class Github
 		@client.update_issue(repo, issue, :labels => newlab)
 	end
 
+	# get a set a commits from certain timestamp
 	# t= DateTime.now - 10
   # time = t.strftime('%Y-%m-%d')
   def get_commit_messages(repo,time)
@@ -27,6 +29,7 @@ class Github
   	return @commits
   end
 
+  # get issue numbers which are fixed
   def issume_numbers(repo,time)
   	numbers = []
   	get_commit_messages(repo,time).each do |commit|
@@ -45,6 +48,7 @@ class Github
     return numbers
   end
 
+  # check commits to see whether there are fixed issues and business features
   def check_commit_messages(repo, time)
   	content = {}
   	content["version"] = nil
@@ -83,6 +87,7 @@ class Github
     return @content
   end
 
+  # generate a json file for data generated weekly
   def generate_weekly_data(file_name, content, version_num = nil)
   	file = File.open(file_name, 'a+')
   	content["version"] = version_num.to_s
@@ -90,6 +95,7 @@ class Github
   	file.close
   end
 
+  # generate the webpage for all release versions
   def generate_webpage(file_name)
   	text=File.open(file_name).read
   	text.gsub!(/\r\n?/, "")

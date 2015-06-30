@@ -34,6 +34,7 @@ class Cus_Trello
 		return @cards= list.cards
 	end
 
+	# check the checkitem if it is finished
 	def get_checklist_item(issue_number)
 		flag = false
 		@cards.each do |card|
@@ -49,8 +50,7 @@ class Cus_Trello
 		return flag
 	end
 
-#checklist = card checklist
-#item = matching checklist item
+# check the box of a certain item
 def change_item_state(checklist, item)
 	id = item.id
 	pos = item.pos
@@ -61,6 +61,7 @@ def change_item_state(checklist, item)
   checklist.save
 end
 
+# move cards from one list to another if it is finished
 def move_cards(list_from_name, list_to_name)
 	from_list = get_list(list_from_name)
 	to_list = get_list(list_to_name)
