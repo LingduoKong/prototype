@@ -1,21 +1,14 @@
 require 'octokit'
 require 'json'
 
-# issues = Octokit.issues 'rails/rails', :per_page => 100
-
-# p issue = issues[0]
-
-# issue.number
-
+# create a client instance to log in the github account
 def new_client(username , password)
   @client = Octokit::Client.new(:login => username, :password => password)
-  # p user = client.user
-  # p user.login
-  # p user.repos
 end
 
-def get_issues(num)
-  @issues = Octokit.issues "LingduoKong/final", :per_page => 100, :state => "open"
+# assistance function to get a issue by issue number
+def get_issue(num)
+  @issues = Octokit.issues "LingduoKong/final",:state => "open"
   @issues.each do |issue|
     if issue.number == num
       @issue = issue
@@ -24,33 +17,24 @@ def get_issues(num)
   end
 end
 
+# set labels of certain issue
 def new_label (name, color, issue)
   newlab = [{:name => name, :color => color}]
   @client.update_issue("LingduoKong/final", issue, :labels => newlab)
 end
 
+# get commit messages from a time
+# currently it is a hard code timestamp
+# it should have a parameter of timestamp and track from that
 def commit_messages
-  # puts @commits[5].commit.methods
-  # p @client.methods
-  # p @client.commits_since(@commits.each{|commit| commit.commit.date})
-  # p @client.commits_since(DateTime.now.to_date)
   t= DateTime.now - 10
   time = t.strftime('%Y-%m-%d') 
   @commits = @client.commits_since("LingduoKong/final", time )
-   # DateTime.now.to_s
   return @commits
  end
 
-#  def compare_issue_numbers(issue_num) 
-#   commit_messages
-#   @commits.each do |commit|
-#     if commit.commit.message[issue_num]
-#       @commit = commit
-#       p @message = @commit.commit.message
-#     end
-#   end
-# end
-
+# it returns issue numbers appearing in the commit messages 
+# format is like {issue#123}, meaning that issue 123 has been fixed
 def issume_numbers
   numbers = []
   commit_messages.each do |commit|
@@ -69,7 +53,7 @@ def issume_numbers
   return numbers
 end
 
-def check_messages
+def check_commit_messages
   content = {}
   content["version"] = nil
   content["release_date"] = DateTime.now.strftime('%Y-%m-%d')
@@ -85,7 +69,7 @@ def check_messages
       @issues_num.each do |issue_num|
         num = issue_num.scan(/\d+/).first.to_i
         new_label("fix", "00FF00", num)
-        title = get_issues(num).title
+        title = get_issue(num).title
         if !content["fix_issue"].include?(title)
           content["fix_issue"].insert(0, title)
         end
@@ -101,7 +85,6 @@ def check_messages
         if !content["features"].include?(feature)
           content["features"].insert(0, feature)
         end
-        puts feature
       end
     end
   end
@@ -177,43 +160,7 @@ def generate_webpage(file_name)
   page.close
 
 end
-# def commit_comments
-#   p @commit.ea
-# end
 
-# compare("new one")
-# def get_repos(username)
-#   user = Octokit.user username
-#   user.rels[:repos].href
-#   repos = user.rels[:repos].get.data
-#   puts repos.last.commits_url
-#   user.methods
-# end
-
-# def get_issues
-#   issues = Octokit.issues 'rails/rails', :per_page => 100, :state => "open"
-#    p issues[0]
-# end
-
-# def change_status
-#   get_issues
-
-#   issues.each do |issue|
-#     issue.state = "closed"
-#     p issue.state
-#   end
-# end
-
-# def change_label
-#   get_issues
-
-#   issues.each do |issue|
-#     issue.labels = [{url: 'whatever', name: 'i hope this works', color: '00FF00'}]
-#     p issue.labels
-#   end
-# end
-# new_label("test","33CC33")
 new_client("LingduoKong", "yuyang12345")
 
-check_messages
-
+check_commit_messages

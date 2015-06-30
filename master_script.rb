@@ -4,7 +4,7 @@ require_relative 'githubgem'
 
 def yolo
   new_client("LingduoKong", "yuyang12345")
-  check_messages
+  check_commit_messages
 
   # generate_weekly_data("email.html", @content, 1.0)
   # get_board
